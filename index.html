@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carlabasitamiaaa</title>
+<style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+      position: relative;
+    }
+  
+    @keyframes beat {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.3);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+  
+    .heart {
+      position: relative;
+      font-size: 250px; /* Ajusta el tamaño del corazón según sea necesario */
+      cursor: pointer;
+      animation: beat 0.8s infinite;
+      z-index: 2; /* Coloca el corazón principal por encima de los corazones adicionales */
+    }
+  
+    .floating-heart {
+      position: absolute;
+      left: 50%;
+      bottom: 100%;
+      transform: translateX(-50%);
+      animation: float-up 2.5s linear forwards, move-around 5s ease-in-out infinite;
+      font-size: 50px; /* Ajusta el tamaño del corazón flotante según sea necesario */
+      z-index: 1;
+    }
+
+    .front-heart {
+      position: absolute;
+      left: 50%;
+      bottom: 100%;
+      transform: translateX(-50%);
+      animation: float-up 2.5s linear forwards, move-around 5s ease-in-out infinite;
+      font-size: 50px; /* Ajusta el tamaño del corazón delantero según sea necesario */
+      z-index: 3;
+    }
+
+    .floating-heart-fall {
+      position: absolute;
+      left: 50%;
+      bottom: 100%;
+      transform: translateX(-50%);
+      animation: float-up 2.5s linear forwards, move-around 3s ease-in-out infinite;
+      font-size: 50px; /* Ajusta el tamaño del corazón flotante según sea necesario */
+      z-index: 1;
+    }
+
+    .front-heart-fall {
+      position: absolute;
+      left: 50%;
+      bottom: 100%;
+      transform: translateX(-50%);
+      animation: float-up 2.5s linear forwards, move-around 3s ease-in-out infinite;
+      font-size: 50px; /* Ajusta el tamaño del corazón delantero según sea necesario */
+      z-index: 3;
+    }
+  
+    @keyframes float-up {
+      0% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+      50% {
+        opacity: 0.5;
+        transform: translateX(-50%) translateY(-100000%);
+      }
+      100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-200000%);
+      }
+    }
+  
+    @keyframes move-around {
+      0%, 100% {
+        transform: translate(-50%, 0);
+      }
+      50% {
+        transform: translate(-50%, -200px);
+      }
+    }
+
+    @keyframes move-around-fall {
+      0%, 100% {
+        transform: translate(-50%, 0);
+      }
+      50% {
+        transform: translate(-50%, 400px);
+      }
+    }
+  </style>
+</head>
+<body>
+<div id="heart-container">
+  <div class="heart" onclick="createHearts(event)">💗</div> 
+</div>
+
+<script>
+  const heart = document.getElementById('heart');
+  heart.addEventListener('click', createHearts);
+  heart.addEventListener('touchstart', createHearts);
+
+  function createHearts(event) {
+    event.preventDefault(); // Evita el comportamiento predeterminado del evento
+
+    const heartContainer = document.getElementById('heart-container');
+    const clickX = event.clientX || event.touches[0].clientX; // Coordenada X del clic o toque
+    const clickY = event.clientY || event.touches[0].clientY; // Coordenada Y del clic o toque
+
+    for (let i = 0; i < 10; i++) {
+      const heart = document.createElement('div');
+      const offsetX = Math.random() * 300 - 120;
+      const offsetY = Math.random() * 300 - 120;
+      const animationDuration = Math.random() * 1.5 + 1; // Duración aleatoria entre 1 y 2.5 segundos
+      heart.style.left = `${clickX + offsetX}px`;
+      heart.style.top = `${clickY + offsetY}px`;
+      heart.innerHTML = '💗';
+      heart.classList.add('floating-heart');
+      heart.style.animation = `float-up ${animationDuration}s linear forwards, move-around 5s ease-in-out infinite`;
+      heartContainer.appendChild(heart);
+
+      const frontHeart = document.createElement('div');
+      const frontOffsetX = Math.random() * 300 - 120;
+      const frontOffsetY = Math.random() * 300 - 120;
+      frontHeart.style.left = `${clickX + frontOffsetX}px`;
+      frontHeart.style.top = `${clickY + frontOffsetY}px`;
+      frontHeart.innerHTML = '💗';
+      frontHeart.classList.add('front-heart');
+      frontHeart.style.animation = `float-up ${animationDuration}s linear forwards, move-around 5s ease-in-out infinite`;
+      heartContainer.appendChild(frontHeart);
+
+      const heartfall = document.createElement('div');
+      const offsetXfall = Math.random() * 300 - 120;
+      const offsetYfall = Math.random() * 300 - 120;
+      heartfall.style.left = `${clickX + offsetXfall}px`;
+      heartfall.style.top = `${clickY + offsetYfall}px`;
+      heartfall.innerHTML = '💗';
+      heartfall.classList.add('floating-heart-fall');
+      heartfall.style.animation = `float-up ${animationDuration}s linear forwards, move-around 5s ease-in-out infinite`;
+      heartContainer.appendChild(heartfall);
+
+      const frontHeartfall = document.createElement('div');
+      const frontOffsetXfall = Math.random() * 300 - 120;
+      const frontOffsetYfall = Math.random() * 300 - 120;
+      frontHeartfall.style.left = `${clickX + frontOffsetXfall}px`;
+      frontHeartfall.style.top = `${clickY + frontOffsetY}px`;
+      frontHeartfall.innerHTML = '💗';
+      frontHeartfall.classList.add('front-heart-fall');
+      frontHeartfall.style.animation = `float-up ${animationDuration}s linear forwards, move-around 5s ease-in-out infinite`;
+      heartContainer.appendChild(frontHeartfall);
+
+      setTimeout(() => {
+        heart.remove();
+        frontHeart.remove();
+      }, 2000);
+    }
+  }
+</script>
+</body>
+</html>
